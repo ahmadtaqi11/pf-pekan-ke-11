@@ -5,17 +5,22 @@ const StyledHero = styled.div`
     text-align: center; 
     
     h2 {
-        color: #0000FF;
+        font-size: 2.44rem;
         margin-bottom: 1rem;
+        color: ${({ theme }) => theme.colors.primary};
     }
 
     h3 {
-        color: #0000FF;
+        font-size: 1.59rem;
+        color: ${({ theme }) => theme.colors.secondary};
         margin-bottom: 1rem;
     }
 
     p {
-        margin-bottom: 1rem;
+        text-align: justify;
+        margin-bottom: 2rem;
+        color: #64748b;
+
     }
 
     img {
@@ -36,21 +41,24 @@ const StyledHero = styled.div`
             padding: 2rem;
         }
     }
-`;
 
-const Leftside = styled.div`
-    @media screen and (min-width: 992px) {
-        flex-basis: 60%;
-        padding-right: 1rem;
-    }
-`;
-
-const Rightside = styled.div`
-    @media screen and (min-width: 992px) {
+    // Medium Screen: 768px
+    @media screen and (min-width: 768px) {
+        flex-direction: row;
+        text-align: left;
+        
+        .poster {
         flex-basis: 40%;
         padding-left: 1rem; 
+        }
+        .info {
+        flex-basis: 60%;
+        padding-right: 1rem;
+        }
     }
-    
+    // Large Screen
+    @media screen and (min-width: 992px) {
+    }
 `;
 
-export { StyledHero, Leftside, Rightside };
+export default StyledHero;

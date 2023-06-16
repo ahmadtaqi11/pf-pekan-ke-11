@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; 
 import axios from "axios";
 import Movies from "../../components/Movies/Movies.module";
-import Hero from "../../components/Hero/Hero.module"; 
+import DetailMovie from "../../components/DetailMovie";
 import ENDPOINTS from "../../components/utils/constants/endpoints";
- 
-function TopRated() {
+
+function Detail() {
+  const params = useParams();
+
   // Membuat state movies
   const [movies, setMovies] = useState([]);  
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    getTopRated();
+    getDetail();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params.id]);
 
-  async function getTopRated() {
+  async function getDetail() {
         // Fetch data dari Axios
-        const response = await axios(ENDPOINTS.TOPRATED);
+        const response = await axios(ENDPOINTS.DETAIL(params.id));
 
         // Simpan data ke state movies
         setMovies(response.data.results);
@@ -24,10 +27,10 @@ function TopRated() {
 
   return (
     <>
-      <Hero />
-      <Movies movies={movies} title="Top Rated" />       
+      <DetailMovie />
+      <Movies movies={movies} title="Recommendations"/>       
     </>
-  )
+  );
 }
 
-export default TopRated
+export default Detail
