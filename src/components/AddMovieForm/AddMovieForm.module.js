@@ -1,12 +1,18 @@
 import { nanoid } from "nanoid";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addMovie } from "../../features/moviesSlice";
 import Alert from "../Alert/Alert";
 import Button from "../ui/Button";
 import styles from "./AddMovieForm.module.css";
 
-function AddMovieForm(props) {
-    // Destructing props
-    const { movies, setMovies } = props;
+function AddMovieForm() {
+    // Membuat navigation
+    const navigation = useNavigate();
+
+    // Membuat dispatch
+    const dispatch = useDispatch();
 
     // Membuat state object 
     const [formData, setFormData] = useState({
@@ -75,7 +81,7 @@ function AddMovieForm(props) {
         }
     }
 
-    function addMovie() {
+    function submitMovie() {
         // Siapkan movie yang ingin diinput
         const movie = {
             id: nanoid(),
@@ -86,15 +92,18 @@ function AddMovieForm(props) {
             genre: genre,
         }
         
-        // Add movie to movies;
-        setMovies([...movies, movie]);
+        dispatch(addMovie(movie));
+
+        // Redirect ke halaman home
+        navigation("/");
     }
+
     
     function handleSubmit(e) {
         // Mencegah prilaku default: refresh page
         e.preventDefault();
 
-        validate() && addMovie();
+        validate() && submitMovie();
     }
 
     return(

@@ -7,11 +7,6 @@ import ENDPOINTS from "../utils/constants/endpoints";
 
 
 function DetailMovie () {
-    /**
-     * TODO:
-     * - Ambil ID dari parameter URL
-     * - Fetch detail movie by id
-     */
     const params = useParams();
     const [movie, setMovie] = useState("");
     const genres = movie && movie.genres.map((genre) => genre.name).join(", ");

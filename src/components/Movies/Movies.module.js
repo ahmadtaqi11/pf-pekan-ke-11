@@ -1,31 +1,17 @@
+import { useSelector } from "react-redux";
 import Movie from "../Movie/Movie.module";
 import styles from "./Movies.module.css";
-import { nanoid } from "nanoid";
 
 function Movies(props) {
     // Destructing props
-    const { movies, setMovies } = props;
+    const { title } = props; 
 
-    // Membuat fungsi tambah film
-    // Dijalankan ketika tombol diklik
-    function tambahFilm() {
-        const movie = {
-            id: nanoid(),
-            title: "Spiral Jigsaw",
-            year: "2021",
-            type: "Movie",
-            poster: "https://picsum.photos/300/400"
-        };
-
-        // Menambahkan movie ke state movies
-        // Spread operator: Copy and merge array
-        setMovies([...movies, movie]);
-    }
+    const movies = useSelector((store) => store.movies.movies);
 
     return(
         <div className={styles.container}>
             <section className={styles.movies}>
-                <h2 className={styles.movies__title}>Latest Movies</h2>
+                <h2 className={styles.movies__title}>{title}</h2>
                 <div className={styles.movies__container}>
                     {/**
                      * Looping data movies: map.
@@ -36,8 +22,6 @@ function Movies(props) {
                         return <Movie key={movie.id} movie={movie} />;
                     })}
                 </div>
-                {/** Menambahkan event onClick */}
-                <button onClick={tambahFilm}>Add Movie</button>
             </section>
         </div>
     );
